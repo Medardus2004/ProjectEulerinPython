@@ -39,7 +39,7 @@ def solution_task003(N):
             prime_factors.append(x)
     return prime_factors
 
-def task003_output():
+def solution():
     print("The prime factors of 13195 are 5, 7, 13, 29. What is the largest prime factor of the number N = 600851475143?\n\n")
     print("Enter N:\n")
     n = input()
