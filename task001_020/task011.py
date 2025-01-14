@@ -8,7 +8,6 @@ def read_data():
         for x in range(0, rows):
             for y in range(0, rows):
                 matrix[x][y] = lines[x][3*y] + lines[x][3*y + 1]
-       # print(matrix)
         return(matrix)
 
 def biggest_vertical(N):

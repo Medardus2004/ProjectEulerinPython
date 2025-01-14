@@ -14,7 +14,10 @@ import task013
 import task014
 import task016
 import task017
-import task026
+import task018
+import task019
+import task020
+
 
 task = input("Which task do you want to solve? ")
 
@@ -51,7 +54,11 @@ match task:
          task016.solution()
     case '17':
          task017.solution()
-    case '26':
-         task026.task026_output()
+    case '18':
+         task018.solution()
+    case '19':
+         task019.solution()
+    case '20':
+         task020.solution()
     case _:
         print(f"There is no task {task}!")
