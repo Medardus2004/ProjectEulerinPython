@@ -1,11 +1,7 @@
 import math
 
 def primzahlcheck(k):
-#    if k == 2:
-#        return True
-#    if k%2 == 0:
-#        return False
-    for x in range(3, k):
+    for x in range(3, math.isqrt(k) + 1):
         if k % x == 0:
             return False
     return True
