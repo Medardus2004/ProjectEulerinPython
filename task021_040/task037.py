@@ -30,7 +30,7 @@ def main():
     parser.add_argument( "max_number", help="less than max number")
     args = parser.parse_args()
     total_sum = 0
-    for i in range (11, int(args.max_number)):
+    for i in range(11, int(args.max_number)):
         if remove_left_to_right(str(i)) and remove_right_to_left(str(i)) :
             total_sum += i
     print(total_sum)
