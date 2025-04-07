@@ -15,7 +15,7 @@ def main():
     largest_cross_sum = 0
     for a in range(1,  int(args.maximum) ) :
         for b in range(1,  int(args.maximum) ) :
-            cross = cross_sum(str(math.pow(a,b))[:2])  
+            cross = cross_sum(str(np.power(a,b, dtype=object)))  
             if largest_cross_sum < cross  :
                 largest_cross_sum = cross
     print(largest_cross_sum)
