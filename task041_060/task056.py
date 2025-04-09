@@ -1,8 +1,7 @@
 from argparse import ArgumentParser
-import math
 import numpy as np
 
-def cross_sum(Num):
+def get_cross_sum(Num):
     summe = 0
     for number in Num:
         summe += int(number)
@@ -15,11 +14,10 @@ def main():
     largest_cross_sum = 0
     for a in range(1,  int(args.maximum) ) :
         for b in range(1,  int(args.maximum) ) :
-            cross = cross_sum(str(np.power(a,b, dtype=object)))  
-            if largest_cross_sum < cross  :
-                largest_cross_sum = cross
+            cross_sum = get_cross_sum(str(np.power(a,b, dtype=object)))  
+            if largest_cross_sum < cross_sum  :
+                largest_cross_sum = cross_sum
     print(largest_cross_sum)
-
 
 if __name__ == "__main__":
     main() 
