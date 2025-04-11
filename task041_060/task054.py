@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+import numpy as np
 
 def read_data(pokertext):
     datei =  open(pokertext, "r")
@@ -69,20 +70,30 @@ def check_three_of_a_kind(hand_rank) :
         return False
 
 def check_two_pairs(hand_rank) :
-    if any(hand_rank.count(i)==2 for i in set(hand_rank)) : # and  check_one_pair(hand_rank - i) :
+    if any(hand_rank.count(i)==2 for i in set(hand_rank)) and len(set(hand_rank)) == 3:
         return True
     else :
         return False
 
 def check_one_pair(hand_rank) :
     if any(hand_rank.count(i)==2 for i in set(hand_rank)) :
-        return True
+        hand_rank_copy = hand_rank
+        r = (list(set(hand_rank)))
+        hand_rank_copy.remove(r[0])
+        hand_rank_copy.remove(r[1])
+        hand_rank_copy.remove(r[2])
+        hand_rank_copy.remove(r[3])
+        r.remove(hand_rank_copy[0])
+        for i in range(0, len(r)):
+            r[i] = int(number_converter(r[i]))
+        sorted(r)
+        return 1000000 + highest_card(int(number_converter(hand_rank_copy[0])), r[0], r[1])
     else :
-        return False
-    
-def highest_card(hand_rank) :
-    hand_rank.sort(reverse = True)
-    return hand_rank[0] * 10000 + hand_rank[1] * 100 + hand_rank[2]
+        return 0
+
+
+def highest_card(hand1, hand2, hand3) :
+    return hand1 * 10000 + hand2 * 100 + hand3
 
 def main():
     parser = ArgumentParser(description= "Task 54")
@@ -116,52 +127,58 @@ def main():
 
 
         ### Check Royal Flush
-        #if check_royal_flush(hand_rank_player1_sorted) :
-        #    print(hand_rank_player1_sorted)
+        if check_royal_flush(hand_rank_player1_sorted) :
+            print("0")
         #if check_royal_flush(hand_rank_player2_sorted) :
         #    print(hand_rank_player2_sorted)
 
         ### Check Straigh Flush
-        #if check_straight_flush(hand_rank_player1_sorted) :
-        #    print(hand_rank_player1_sorted)
+        elif check_straight_flush(hand_rank_player1_sorted) :
+            print("0")
         #if check_straight_flush(hand_rank_player2_sorted) :
         #    print(hand_rank_player2_sorted)
 
         ### Check Four_of_a_kind
-        #if check_four_of_a_kind([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
-        #    print(hand_rank_player1_sorted)
+        elif check_four_of_a_kind([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print("0")
         #if check_four_of_a_kind([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
         #    print(hand_rank_player2_sorted)
 
         ### check Full_house
-        #if check_full_house([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
-        #    print(hand_rank_player1_sorted)
+        elif check_full_house([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print("0")
         #if check_full_house([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
         #    print(hand_rank_player2_sorted)
 
         ### check Flush
-        #if check_flush([hand_player_1[0]["color"], hand_player_1[1]["color"], hand_player_1[2]["color"], hand_player_1[3]["color"], hand_player_1[4]["color"]]) :
-        #    score_player_1 = 600
+        elif check_flush([hand_player_1[0]["color"], hand_player_1[1]["color"], hand_player_1[2]["color"], hand_player_1[3]["color"], hand_player_1[4]["color"]]) :
+            score_player_1 = 600
         #if check_flush([hand_player_2[0]["color"], hand_player_2[1]["color"], hand_player_2[2]["color"], hand_player_2[3]["color"], hand_player_2[4]["color"]]) :
         #    score_player_2 = 600
 
         ### check Straight
-        #if check_straight([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
-        #    print(hand_rank_player1_sorted)
+        elif check_straight([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print(hand_rank_player1_sorted)
         #if check_straight([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
         #    print(hand_rank_player2_sorted)
 
         ### Check Three_of_a_kind
-        # if check_three_of_a_kind([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
-        #    print(hand_rank_player1_sorted)
+        elif check_three_of_a_kind([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print(hand_rank_player1_sorted)
         #if check_three_of_a_kind([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
         #    print(hand_rank_player2_sorted)
 
-        ### Check one_pair
-        #if check_one_pair([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
-        #    print(hand_rank_player1_sorted)
-        #if check_one_pair([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
+        ### Check two_pairs
+        elif check_two_pairs([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print(hand_rank_player1_sorted)
+        #if check_two_pairs([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
         #    print(hand_rank_player2_sorted)
+
+        ### Check one_pair
+        elif check_one_pair([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]) :
+            print(hand_rank_player1_sorted, check_one_pair([number_converter(hand_rank_player1_sorted[0]["rank"]), number_converter(hand_rank_player1_sorted[1]["rank"]), number_converter(hand_rank_player1_sorted[2]["rank"]), number_converter(hand_rank_player1_sorted[3]["rank"]), number_converter(hand_rank_player1_sorted[4]["rank"])]))
+        #if check_one_pair([number_converter(hand_rank_player2_sorted[0]["rank"]), number_converter(hand_rank_player2_sorted[1]["rank"]), number_converter(hand_rank_player2_sorted[2]["rank"]), number_converter(hand_rank_player2_sorted[3]["rank"]), number_converter(hand_rank_player2_sorted[4]["rank"])]) :
+            print(hand_rank_player2_sorted)
 
 
         #print(hand_rank_player1_sorted[0]["rank"], hand_rank_player1_sorted[1]["rank"], hand_rank_player1_sorted[2]["rank"], hand_rank_player1_sorted[3]["rank"], hand_rank_player1_sorted[4]["rank"])
